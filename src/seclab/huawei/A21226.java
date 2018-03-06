@@ -1,6 +1,6 @@
 package seclab.huawei;
 
-import java.util.*;
+import java.util.Scanner;
 
 /**
  * User: Harlan1994
@@ -14,17 +14,19 @@ import java.util.*;
 public class A21226 {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        int num[] = new int[1001];
-        int flag[] = new int[1001];
-        int N = input.nextInt();
-        for (int i = 0; i < N; i++) {
-            int number = input.nextInt();
-            num[number] = number;
-            flag[number] = 555;
-        }
-        for (int i = 0; i < 1001; i++) {
-            if (flag[i] == 555)
-                System.out.println(num[i]);
+        while (input.hasNext()) {
+            int N = input.nextInt();
+            int num[] = new int[1001];
+            for (int i = 1; i <= N; i++) {
+                int tempNum = input.nextInt();
+                num[tempNum] = 1;
+            }
+
+            for (int i = 1; i <= 1000; i++) {
+                if (num[i] == 1) {
+                    System.out.println(i);
+                }
+            }
         }
     }
 }
