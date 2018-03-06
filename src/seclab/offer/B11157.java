@@ -68,6 +68,7 @@ public class B11157 {
     }
 
     static int v = 0;
+
     /**
      * 先序遍历
      *
@@ -82,6 +83,7 @@ public class B11157 {
     }
 
     static int k = 0;
+
     /**
      * 中序遍历
      *
@@ -125,10 +127,10 @@ public class B11157 {
     public static void main(String[] args) {
         String tree[] = {
                 "1",
-                "2", "3",
-                "4", "5", "6", "7",
-                "#", "8", "9", "10", "11", "#", "12", "#",
-                "#", "#", "13", "#", "14", "#", "#", "15", "#", "#", "#", "#", "16", "#", "#", "#"
+                "2", "4",
+                "#", "#", "#", "#",
+                "8", "13", "#", "5", "9", "14", "#", "10",
+                "#", "15", "3", "6", "11", "#", "#", "#", "#", "#", "7", "12", "14", "#", "#", "#"
         };
         TreeNode root = null;
         B11157 b11157 = new B11157();
@@ -140,6 +142,17 @@ public class B11157 {
         b11157.preOrder(root);
         System.out.println();
         b11157.inOrder(root);
+        System.out.println();
+
+        for (int i = 0; i < 16; i++) {
+            System.out.print(pre[i] + " ");
+        }
+        System.out.println();
+
+        for (int i = 0; i < 16; i++) {
+            System.out.print(in[i] + " ");
+        }
+        System.out.println();
 
         TreeNode newTree = b11157.reConstructBinaryTree(pre, in);
         b11157.preOrder(newTree);
