@@ -11,6 +11,16 @@ import java.util.List;
  */
 public class B11172 {
 
+    /**
+     * 一圈一圈递归打印
+     *
+     * @param left
+     * @param right
+     * @param top
+     * @param bottom
+     * @param matrix
+     * @param array
+     */
     public static void matrixToArray(int left, int right, int top, int bottom, int[][] matrix, List<Integer> array) {
         if (!(left <= right && top <= bottom)) return;
 
@@ -22,12 +32,13 @@ public class B11172 {
             array.add(matrix[i][right]);
         }
 
+        // 避免单行单列情况出错，需要加判断防止重复添加。
         if (top != bottom) {
             for (int i = right - 1; i >= left; --i) {
                 array.add(matrix[bottom][i]);
             }
         }
-
+        // 避免单行单列情况出错，需要加判断防止重复添加。
         if (left != right) {
             for (int i = bottom - 1; i > top; --i) {
                 array.add(matrix[i][left]);
@@ -46,11 +57,17 @@ public class B11172 {
 
     public static void main(String[] args) {
         int[][] array = {
-                {1, 2, 3, 4, 5}
+                {1, 2, 3, 4, 5},
+                {6, 7, 8, 9, 10},
+                {11, 12, 13, 14, 15},
+                {16, 17, 18, 19, 20},
+                {21, 22, 23, 24, 25}
         };
 
         ArrayList<Integer> matrix = printMatrix(array);
 
-        System.out.println("Oh, shit.");
+        for (Integer integer : matrix) {
+            System.out.print(" " + integer);
+        }
     }
 }

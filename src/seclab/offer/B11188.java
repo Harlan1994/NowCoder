@@ -17,44 +17,47 @@ public class B11188 {
     public int InversePairs(int[] array) {
         int[] copy = new int[array.length];
         for (int i = 0; i < array.length; i++) copy[i] = array[i];
+//        int count = InversePairsCore(array, copy, 0, array.length - 1);
         int count = InversePairsCore(array, copy, 0, array.length - 1);
         return count;
     }
 
-    public int InversePairsCore(int[] array, int[] copy, int start, int end) {
-        if (start == end) {
-            copy[start] = array[start];
+    /**
+     * 另一个版本，这个版本不需要呼唤array和copy，更好理解
+     *
+     * @param array
+     * @param copy
+     * @param low
+     * @param high
+     * @return
+     */
+    public int InversePairsCore(int[] array, int[] copy, int low, int high) {
+        if (low == high) {
             return 0;
         }
+        int mid = (low + high) / 2;
+        int leftCount = InversePairsCore(array, copy, low, mid);
+        int rightCount = InversePairsCore(array, copy, mid + 1, high);
 
-        int length = (end - start) / 2;
-
-        // 一直按照一半一半的划分下去，直到化成成一个一个的。
-        int leftCount = InversePairsCore(copy, array, start, start + length) % 1000000007;
-        int rightCount = InversePairsCore(copy, array, start + length + 1, end) % 1000000007;
-
-        int i = start + length, j = end; /**从最后一个开始归并**/
-        int indexCopy = end;
+        int i = mid, j = high, indexCopy = high;
         int count = 0;
-
-        /**
-         * 这是归并阶段，从后到前归并，按照从小到大的顺序排序。
-         * 因为比较时前面的和后面的都是经过各自归并排序的，因此当归并时发现前面的比后面的大，那么后面的就可能有多个,
-         * 例如 (5，6，7/1，3，6) 7比6大，那自然的7肯定比6前面的数字都大，故都需要统计一次。
-         * 归并之后是有顺序的，也就是原本比后面大的情况经过排序之后就没有了，故不会重复统计。
-         */
-        while (i >= start && j >= start + length + 1) {
+        while (i >= low && j >= mid + 1) {
             if (array[i] > array[j]) {
                 copy[indexCopy--] = array[i--];
-                count += j - start - length; /**当前j前面的(包括j)都需要统计一次**/
-                count %= 1000000007;/**每次都需要模一次避免过大**/
+                count += j - mid;
+                count %= 1000000007;
             } else {
                 copy[indexCopy--] = array[j--];
             }
         }
 
-        while (i >= start) copy[indexCopy--] = array[i--];
-        while (j >= start + length + 1) copy[indexCopy--] = array[j--];
+        while (i >= low) copy[indexCopy--] = array[i--];
+        while (j >= mid + 1) copy[indexCopy--] = array[j--];
+
+        /**但是这也得每次都更新array，使得array每次都是排好序的**/
+        for (int s = low; s <= high; s++) {
+            array[s] = copy[s];
+        }
 
         /**从全局看，每次返回也是需要模一次的**/
         return (leftCount + rightCount + count) % 1000000007;
