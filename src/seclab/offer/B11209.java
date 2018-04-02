@@ -1,6 +1,5 @@
 package seclab.offer;
 
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -23,7 +22,12 @@ public class B11209 {
                 p = p.next;
             }
             ListNode head = new B11209().deleteDuplication(root);
-            System.out.println("Oh, shit");
+
+            ListNode s = head;
+            while (s != null) {
+                System.out.print(s.val + " ");
+                s = s.next;
+            }
         }
     }
 

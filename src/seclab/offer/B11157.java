@@ -1,7 +1,5 @@
 package seclab.offer;
 
-import java.util.Scanner;
-
 public class B11157 {
 
     public class TreeNode {
@@ -40,9 +38,9 @@ public class B11157 {
 
         // 确定需要继续递归下去的左子树和右子树的先序和中序序列
         int[] left_pre = new int[position];
-        int[] right_pre = new int[in.length - position];
+        int[] right_pre = new int[in.length - position - 1];
         int[] left_in = new int[position];
-        int[] right_in = new int[in.length - position];
+        int[] right_in = new int[in.length - position - 1];
 
         // 前序序列中的左子树和中序序列中的左子树
         int j = 0;
@@ -66,6 +64,52 @@ public class B11157 {
 
         return root;
     }
+
+    /**
+     * 根据二叉树前序遍历和中序遍历序列，重构二叉树
+     *
+     * @param pre
+     * @param in
+     * @return
+     */
+    public TreeNode reConstructBinaryTree1(int[] pre, int[] in) {
+        TreeNode root = reConstructBinaryTreeCore(pre, in, 0, pre.length - 1, 0, in.length - 1);
+        return root;
+    }
+
+    /**
+     * 上面的方法是将步骤分开来了
+     * 就是得到下一次递归的前序中序遍历的序列，然后再继续递归
+     * 其实这可以直接原前序和中序序列中通过限定范围得到
+     *
+     * @param pre   整体的前序遍历序列
+     * @param in    整体的中序序列
+     * @param start 下一次递归前序序列开始位置
+     * @param end   下一次递归前序序列结束位置
+     * @param left  下一次递归中序序列开始位置
+     * @param right 下一次递归中序序列结束位置
+     * @return
+     */
+    public TreeNode reConstructBinaryTreeCore(int[] pre, int[] in, int start, int end, int left, int right) {
+        // 递归需要出口,当前序序列或者中序序列的开始位置和大于结束位置，结束递归
+        if (start > end || left > right) return null;
+
+        // 新建节点,这是当前递归下的前序和中序下的根节点，即前序序列第一个节点
+        TreeNode root = new TreeNode(pre[start]);
+
+        // 接下来建立当前根节点的左右子树,需要先找到当中序序列中的根节点，才能分清楚左子树和右子树
+        for (int i = left; i <= right; i++) {
+            if (in[i] == pre[start]) { // 找到了根节点，那么这个位置左边的就是左子树，右边的就是右子树
+                root.left = reConstructBinaryTreeCore(pre, in, start + 1, start + i - left, left, i - 1);
+                root.right = reConstructBinaryTreeCore(pre, in, start + i - left + 1, end, i + 1, right);
+
+                // 需要break
+                break;
+            }
+        }
+        return root;
+    }
+
 
     static int v = 0;
 
@@ -112,10 +156,8 @@ public class B11157 {
             if (tree[pos].equals("#")) return null;
             else {
                 root = new TreeNode(Integer.parseInt(tree[pos]));
-                TreeNode left = null;
-                TreeNode right = null;
-                root.left = createTree(left, tree, ++count);
-                root.right = createTree(right, tree, ++count);
+                root.left = createTree(root.left, tree, ++count);
+                root.right = createTree(root.right, tree, ++count);
             }
         }
         return root;
@@ -126,35 +168,26 @@ public class B11157 {
 
     public static void main(String[] args) {
         String tree[] = {
-                "1",
-                "2", "4",
-                "#", "#", "#", "#",
-                "8", "13", "#", "5", "9", "14", "#", "10",
-                "#", "15", "3", "6", "11", "#", "#", "#", "#", "#", "7", "12", "14", "#", "#", "#"
+                "1", "2", "4",
+                "#", "#", "5", "8",
+                "#", "#", "9", "#", "#",
+                "3", "6", "#", "#", "7", "10", "#", "#", "#"
         };
         TreeNode root = null;
         B11157 b11157 = new B11157();
         root = b11157.createTree(root, tree, count);
 
-        pre = new int[16];
-        in = new int[16];
+        pre = new int[10];
+        in = new int[10];
 
         b11157.preOrder(root);
         System.out.println();
         b11157.inOrder(root);
         System.out.println();
 
-        for (int i = 0; i < 16; i++) {
-            System.out.print(pre[i] + " ");
-        }
-        System.out.println();
-
-        for (int i = 0; i < 16; i++) {
-            System.out.print(in[i] + " ");
-        }
-        System.out.println();
-
-        TreeNode newTree = b11157.reConstructBinaryTree(pre, in);
+        TreeNode newTree = b11157.reConstructBinaryTree1(pre, in);
+        k = 0;
+        v = 0;
         b11157.preOrder(newTree);
         System.out.println();
         b11157.inOrder(newTree);

@@ -32,14 +32,16 @@ public class B11188 {
      * @return
      */
     public int InversePairsCore(int[] array, int[] copy, int low, int high) {
-        if (low == high) {
+        if (low == high) { // 当递归到只有一个数字的时候，无法比较，故可以开始返回了，返回0表示一个数字没有比较，也就没有逆序对
             return 0;
         }
-        int mid = (low + high) / 2;
+        int mid = (low + high) / 2; // 分治
         int leftCount = InversePairsCore(array, copy, low, mid);
         int rightCount = InversePairsCore(array, copy, mid + 1, high);
 
-        int i = mid, j = high, indexCopy = high;
+        // 在merge中统计逆序对，4 5 6和1 3 4，4 > 3,那么4肯定大与3和3前面的数
+        // 统计过程中不会出现重复统计的情况，因为每次merge统计过后都是已经排好序的
+        int i = mid, j = high, indexCopy = high; // 必须从后往前merge
         int count = 0;
         while (i >= low && j >= mid + 1) {
             if (array[i] > array[j]) {
@@ -62,7 +64,6 @@ public class B11188 {
         /**从全局看，每次返回也是需要模一次的**/
         return (leftCount + rightCount + count) % 1000000007;
     }
-
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
