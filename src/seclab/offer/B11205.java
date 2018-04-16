@@ -15,11 +15,11 @@ public class B11205 {
         int strIndex = 0;
         int patternIndex = 0;
 
-
+        return false;
     }
 
-    public boolean matchCore(char[] str, char[] pattern, int strIndex, int patternIndex){
-        
+    public boolean matchCore(char[] str, char[] pattern, int strIndex, int patternIndex) {
+        return false;
     }
 
     public static void main(String[] args) {
