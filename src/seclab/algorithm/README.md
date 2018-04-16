@@ -22,5 +22,12 @@ int cost = 0 // 当前费用
 int bestc = 0 // 当前最优值
 int INF = Integer.MAX_VALUE // 邻接矩阵中的值，表示节点之间没有路径
 ```
-2). 
+2). 回溯法求最优解
+```
+if(i == n) { // 如果递归到了最后一个节点
+    if(matrix[n][n-1] != INF && matrix[n][1] != INF){ // 如果n节点和n-1节点以及n和1节点有路径
+        
+    }
+}
+```
 
