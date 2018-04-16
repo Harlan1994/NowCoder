@@ -11,6 +11,7 @@ package seclab.algorithm;
 public class TravalSalerProblem {
 
     private static final Integer N = 4;
+    private static final Integer INF = Integer.MAX_VALUE; // 节点之间如果是INF代表没有路径
 
     public static void main(String[] args) {
         int[][] matrix = new int[N][N]; // 四个节点的图邻接矩阵
