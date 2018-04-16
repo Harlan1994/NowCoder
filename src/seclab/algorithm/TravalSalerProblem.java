@@ -10,7 +10,14 @@ package seclab.algorithm;
  */
 public class TravalSalerProblem {
 
+    private static final Integer N = 4;
+
     public static void main(String[] args) {
+        int[][] matrix = new int[N][N]; // 四个节点的图邻接矩阵
+
+    }
+
+    void traveling() {
 
     }
 }
