@@ -17,17 +17,24 @@
 1). 初始化相关数据
 ```
 int[][] matrix = new int[N][N] // N个节点的邻接矩阵，代表售货员需要去的各个点形成的路径图。
-int bestx = 0 // 当前最优解
+int[] bestx = new int[N] // 当前最优解
 int cost = 0 // 当前费用
 int bestc = 0 // 当前最优值
 int INF = Integer.MAX_VALUE // 邻接矩阵中的值，表示节点之间没有路径
 ```
 2). 回溯法求最优解
 ```
-if(i == n) { // 如果递归到了最后一个节点
-    if(matrix[n][n-1] != INF && matrix[n][1] != INF){ // 如果n节点和n-1节点以及n和1节点有路径
-        
+if(i == N) { // 如果递归到了最后一个节点
+    if(matrix[N][N-1] != INF && matrix[N][1] != INF){ // 如果n节点和n-1节点以及n和1节点有路径
+        if(bestc == 0 || cost + matrix[N-1][N] + matrix[N][1] < bestc){ // 如果当前bestc是0（还没有最优解），或者n节点和n-1节点以及n和1节点的路径费用加上当前的cost费用小于最优解
+            bestc = cost + matrix[N-1][N] + matrix[N][1] // 更新当前最优解
+            
+            // 更新当前解
+            for(int i = 1; i <= N; i++)bestx[i] = x[i]
+        }
     }
+}else{// 否则继续遍历子树
+    ...
 }
 ```
 
