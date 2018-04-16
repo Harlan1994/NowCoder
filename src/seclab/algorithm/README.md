@@ -15,11 +15,12 @@
 
 ### 5. 关键代码
 1). 初始化相关数据
+```
 int[][] matrix = new int[N][N] // N个节点的邻接矩阵，代表售货员需要去的各个点形成的路径图。
 int bestx = 0 // 当前最优解
 int cost = 0 // 当前费用
 int bestc = 0 // 当前最优值
 int INF = Integer.MAX_VALUE // 邻接矩阵中的值，表示节点之间没有路径
-
+```
 2). 
 
