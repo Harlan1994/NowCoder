@@ -1,6 +1,6 @@
 package seclab.offer;
 
-public class B11157 {
+public class B11157_重建二叉树 {
 
     public class TreeNode {
         int val;
@@ -174,22 +174,22 @@ public class B11157 {
                 "3", "6", "#", "#", "7", "10", "#", "#", "#"
         };
         TreeNode root = null;
-        B11157 b11157 = new B11157();
-        root = b11157.createTree(root, tree, count);
+        B11157_重建二叉树 b11157重建二叉树 = new B11157_重建二叉树();
+        root = b11157重建二叉树.createTree(root, tree, count);
 
         pre = new int[10];
         in = new int[10];
 
-        b11157.preOrder(root);
+        b11157重建二叉树.preOrder(root);
         System.out.println();
-        b11157.inOrder(root);
+        b11157重建二叉树.inOrder(root);
         System.out.println();
 
-        TreeNode newTree = b11157.reConstructBinaryTree1(pre, in);
+        TreeNode newTree = b11157重建二叉树.reConstructBinaryTree1(pre, in);
         k = 0;
         v = 0;
-        b11157.preOrder(newTree);
+        b11157重建二叉树.preOrder(newTree);
         System.out.println();
-        b11157.inOrder(newTree);
+        b11157重建二叉树.inOrder(newTree);
     }
 }

@@ -35,4 +35,8 @@ public class B11217 {
 
         return integers;
     }
+
+    public static ArrayList<Integer> maxInWindowsQueue(int[] num, int size) {
+        return null;
+    }
 }

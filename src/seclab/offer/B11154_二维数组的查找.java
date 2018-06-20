@@ -6,16 +6,16 @@ import java.util.Scanner;
  * User: Harlan1994
  * Date: 2017/8/14
  * Time: 22:24
- * Description:http://www.cnblogs.com/zhuyf87/archive/2013/03/01/2938013.html
+ * Description:二维数组的查找
  */
-public class B11154 {
+public class B11154_二维数组的查找 {
 
     static int i = -1;
     static int j = -1;
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        B11154 test = new B11154();
+        B11154_二维数组的查找 test = new B11154_二维数组的查找();
         int target;
         target = scanner.nextInt();
         int m; int n;
