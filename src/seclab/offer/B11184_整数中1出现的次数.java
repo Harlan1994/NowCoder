@@ -4,7 +4,7 @@ package seclab.offer;
  * description:
  * 求出1~13的整数中1出现的次数,并算出100~1300的整数中1出现的次数？为此他特别数了一下1~13中包含1的数字有1、10、11、12、13因此共出现6次,但是对于后面问题他就没辙了。
  * ACMer希望你们帮帮他,并把问题更加普遍化,可以很快的求出任意非负整数区间中1出现的次数。
- *
+ * <p>
  * solution:
  * /*
  * 设N = abcde ,其中abcde分别为十进制中各位上的数字。
@@ -17,12 +17,33 @@ package seclab.offer;
 public class B11184_整数中1出现的次数 {
 
     public static void main(String[] args) {
-
+        B11184_整数中1出现的次数 b11184_整数中1出现的次数 = new B11184_整数中1出现的次数();
+        int result = b11184_整数中1出现的次数.NumberOf1Between1AndN_Solution(13);
+        System.out.println(result);
     }
 
+    // 从低到高一次计算每一位上出现1的次数，然后相加即可
     public int NumberOf1Between1AndN_Solution(int n) {
-
-        int currentBit = 1; // 当前位
-
+        int count = 0;
+        int curBit = 1;
+        int current = 0;
+        int before = 0;
+        int after = 0;
+        int tempN = n;
+        while (tempN > 0) {
+            current = (n / curBit) % 10; // 当前位的值
+            before = n / (curBit * 10); // 高位的值
+            after = n - (n / curBit) * curBit;// 低位的值
+            if (current == 0) {
+                count += before * curBit;
+            } else if (current == 1) {
+                count += (before * curBit + after + 1);
+            } else {
+                count += (before + 1) * curBit;
+            }
+            curBit *= 10;
+            tempN /= 10;
+        }
+        return count;
     }
 }
