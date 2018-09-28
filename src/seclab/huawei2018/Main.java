@@ -38,6 +38,7 @@ public class Main {
                 list.add(count);
             }
         }
+
         System.out.println(Collections.max(list));
     }
 }
